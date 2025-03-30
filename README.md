@@ -71,15 +71,17 @@ pip install Pillow
 
 ```python
 python manage.py createsuperuser
-Username : admin
-Password : 12345678
+Username : abhi
+Password : abhi123
 ```
-# Demo
 
-http://djangoecommerce.pythonanywhere.com
 
-# HTML Template
+## Contact
 
-https://colorlib.com/etc/fashe/index.html
+please feel free to contact me at abhiramrangoon@email.com.
 
+---
+
+👨‍💻 **Developed with ❤️ using Django**  
+⭐ If you like this project, consider giving it a **star** on GitHub! ⭐
 
