@@ -1,15 +1,16 @@
 # Django-Ecommerce
 
-Ecommerce website built with Django 2.2.3, Python 3.7.3, and AWS
+Ecommerce website built with Django 2.2.3, Python 3.13.3,
+`Home Page`
 
 ![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/Homepage.png)
 
-`Product Slide`
+`Categories`
 
-![image](https://user-images.githubusercontent.com/29988949/65999313-ff67fe00-e451-11e9-9ed9-fc7bce704f17.png)
+![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/categories.png)
 
 `Shop Page`
-![image](https://user-images.githubusercontent.com/29988949/66098968-923f9000-e559-11e9-8691-cd5c2b181ca1.png)
+![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/shopping.png)
 
 `Product Detail Page`
 ![image](https://user-images.githubusercontent.com/29988949/66291084-bff84200-e895-11e9-8d53-3aa23b29dbae.png)
@@ -17,14 +18,14 @@ Ecommerce website built with Django 2.2.3, Python 3.7.3, and AWS
 `Cart Page`
 ![image](https://user-images.githubusercontent.com/29988949/66291144-f0d87700-e895-11e9-8545-b8f93f799063.png)
 
-`BillingAddress Page`
-![image](https://user-images.githubusercontent.com/29988949/66291542-013d2180-e897-11e9-8ea9-40afcb90cee2.png)
+`Signup form`
+![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/Signup.png)
 
-`Stripe Payment Page`
-![image](https://user-images.githubusercontent.com/29988949/66291610-29c51b80-e897-11e9-8b47-20de35d6c1d0.png)
+`Category-1`
+![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/cat1.png)
 
-`Order Success Page`
-![image](https://user-images.githubusercontent.com/29988949/66291657-3e091880-e897-11e9-830b-6cf44e72a995.png)
+`Category-2`
+![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/cat2.png)
 
 
 
