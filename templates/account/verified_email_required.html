@@ -1,0 +1,145 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+  /* Consistent Background */
+  .email-verify-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Matching Card Styling */
+  .auth-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated Top Border */
+  .auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #e65540 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 5s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Title Styling */
+  .auth-title {
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+  }
+
+  .auth-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #e65540;
+    margin: 15px auto;
+    border-radius: 2px;
+  }
+
+  /* Content Styling */
+  .auth-content {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Email Icon */
+  .email-icon {
+    color: #4299e1;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Link Styling */
+  .auth-link {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .auth-link:hover {
+    color: #e65540;
+    text-decoration: underline;
+  }
+
+  /* Note Styling */
+  .auth-note {
+    background: #ebf8ff;
+    border-left: 4px solid #4299e1;
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 4px;
+  }
+
+  /* Responsive */
+  @media (max-width: 576px) {
+    .email-verify-page {
+      padding: 20px 0;
+    }
+    .auth-card {
+      padding: 30px 20px;
+    }
+  }
+</style>
+
+<div class="email-verify-page">
+  <div class="container">
+    <div class="auth-card">
+      <div class="email-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4299e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </div>
+      
+      <h1 class="auth-title">{% trans "Verify Your E-mail Address" %}</h1>
+      
+      {% url 'account_email' as email_url %}
+      
+      <p class="auth-content">{% blocktrans %}This part of the site requires us to verify that
+      you are who you claim to be. For this purpose, we require that you
+      verify ownership of your e-mail address.{% endblocktrans %}</p>
+      
+      <p class="auth-content">{% blocktrans %}We have sent an e-mail to you for
+      verification. Please click on the link inside this e-mail. Please
+      contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+      
+      <div class="auth-note">
+        <p>{% blocktrans %}<strong>Note:</strong> you can still <a href="{{ email_url }}" class="auth-link">change your e-mail address</a>.{% endblocktrans %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

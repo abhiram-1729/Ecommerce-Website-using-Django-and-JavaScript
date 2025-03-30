@@ -1,0 +1,80 @@
+{% extends "base.html" %}  <!-- Make sure this extends your main base template -->
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+  /* Remove all header-related spacing */
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Main login container */
+  .login-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    margin: 40px auto;
+  }
+
+  /* Title styling */
+  .login-title {
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+  }
+
+  /* Form styling */
+  .login-form input {
+    border-radius: 8px !important;
+    padding: 12px 15px !important;
+    border: 1px solid #e2e8f0 !important;
+    margin-bottom: 15px;
+  }
+
+  /* Button styling */
+  .login-btn {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="login-container">
+        <h1 class="login-title">{% trans "Sign In" %}</h1>
+        
+        <form class="login-form" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+          {% endif %}
+          
+          <div class="d-flex justify-content-between mt-4">
+            {% comment %} <a class="btn btn-link" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a> {% endcomment %}
+            <button class="login-btn" type="submit">{% trans "Sign In" %}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

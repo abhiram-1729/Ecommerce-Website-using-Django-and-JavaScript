@@ -1,0 +1,205 @@
+{% load static %}
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    /* Dark Mode Footer */
+    .neo-footer {
+        background: linear-gradient(135deg, #0f0f15, #1a1a24);
+        color: #e0e0e0;
+        padding: 4rem 0 2rem;
+        font-family: 'Poppins', sans-serif;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+    }
+
+    .neo-footer a {
+        color: #b0b0b0;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        position: relative;
+        padding: 0.2rem 0;
+        display: inline-block;
+    }
+
+    .neo-footer a:hover {
+        color: #ffffff;
+        transform: translateX(5px);
+    }
+
+    .neo-footer a:hover::before {
+        content: '→';
+        position: absolute;
+        left: -15px;
+        color: #6c63ff;
+    }
+
+    .neo-footer h6 {
+        color: white;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    .neo-footer h6::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: linear-gradient(90deg, #6c63ff, #ff6584);
+        border-radius: 3px;
+    }
+
+    .footer-column {
+        padding: 0 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-app-badges a {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255,255,255,0.08);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .footer-app-badges a:hover {
+        background: rgba(255,255,255,0.15);
+        transform: translateY(-3px) !important;
+    }
+
+    .footer-app-badges i {
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .footer-divider {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        margin: 2rem 0;
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2rem;
+    }
+
+    .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 50%;
+        margin-right: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        background: #6c63ff;
+        transform: translateY(-5px) rotate(10deg);
+    }
+
+    .copyright {
+        color: #777;
+        font-size: 0.9rem;
+    }
+
+    .footer-highlight {
+        color: #6c63ff;
+        font-weight: 500;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .footer-column {
+            padding: 0 1rem;
+        }
+        
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .social-icons {
+            margin: 1rem 0;
+        }
+    }
+</style>
+
+<footer class="neo-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 footer-column">
+                <h6>EXPLORE</h6>
+                <a href="">Find a Store</a>
+                <a href="">Sign Up for Email</a>
+                <a href="">Become a Member</a>
+                <a href="/admin/">Admin Login</a>
+            </div>
+            
+            <div class="col-md-3 footer-column">
+                <h6>SUPPORT</h6>
+                <a href="">Order Status</a>
+                <a href="">Shipping & Delivery</a>
+                <a href="">Returns</a>
+                <a href="">Payment Options</a>
+                <a href="">Contact Us</a>
+            </div>
+            
+            <div class="col-md-3 footer-column">
+                <h6>COMPANY</h6>
+                <a href="">News</a>
+                <a href="">Careers</a>
+                <a href="">Investors</a>
+                <a href="">Sustainability</a>
+                <a href="">Ethics Reporting</a>
+            </div>
+            
+            <div class="col-md-3 footer-column">
+                <h6>CONNECT</h6>
+                <div class="footer-app-badges">
+                    <a href="">
+                        <i class="fab fa-apple"></i>
+                        <span>App Store</span>
+                    </a>
+                    <a href="">
+                        <i class="fab fa-google-play"></i>
+                        <span>Google Play</span>
+                    </a>
+                </div>
+                
+                <div class="social-icons mt-3">
+                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                    <a href=""><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="footer-divider">
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; 2025 <span class="footer-highlight">ABHIRAM</span>. All Rights Reserved.
+            </div>
+            <div class="social-icons">
+                <a href=""><i class="fab fa-discord"></i></a>
+                <a href=""><i class="fab fa-pinterest"></i></a>
+                <a href=""><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>

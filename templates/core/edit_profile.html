@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Main container */
+    .profile-edit-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    /* Header styling */
+    .profile-edit-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-edit-header h2 {
+        font-size: 2.2rem;
+        color: #2d3748;
+        margin-bottom: 10px;
+        font-weight: 700;
+        position: relative;
+    }
+
+    .profile-edit-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+
+    /* Form grid layout */
+    .profile-edit-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    /* Form group styling */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+        grid-column: span 2;
+    }
+
+    label {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        transition: all 0.3s;
+        font-family: inherit;
+        background-color: #fff;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        outline: none;
+    }
+
+    /* Image upload styling */
+    .image-upload-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        grid-column: span 2;
+    }
+
+    .current-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 25px;
+        border: 3px solid #e2e8f0;
+    }
+
+    .image-upload-label {
+        flex-grow: 1;
+    }
+
+    .image-upload-label span {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #4a5568;
+    }
+
+    /* Button styling */
+    .form-actions {
+        grid-column: span 2;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .save-changes-btn {
+        background: linear-gradient(to right, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .save-changes-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Date input styling */
+    input[type="date"] {
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .profile-edit-container {
+            padding: 25px;
+            margin: 20px;
+        }
+
+        .profile-edit-form {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group.full-width {
+            grid-column: span 1;
+        }
+
+        .image-upload-wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .current-image {
+            margin-right: 0;
+            margin-bottom: 15px;
+        }
+    }
+</style>
+
+<div class="profile-edit-container">
+    <div class="profile-edit-header">
+        <h2>Edit Profile</h2>
+        <p>Update your personal information</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="profile-edit-form">
+        {% csrf_token %}
+        
+        <!-- Profile Image (Full width) -->
+        <div class="image-upload-wrapper">
+            {% if form.instance.image %}
+                <img src="{{ form.instance.image.url }}" alt="Current Profile" class="current-image" id="image-preview">
+            {% else %}
+                <div class="current-image" id="image-preview" style="background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 2.5rem; color: #a0aec0;">{{ user.username|first|upper }}</span>
+                </div>
+            {% endif %}
+            <div class="image-upload-label">
+                <span>Profile Picture</span>
+                <input type="file" name="image" accept="image/*" id="id_image" onchange="previewImage(this)">
+                <small class="text-muted">Recommended size: 300x300 pixels</small>
+            </div>
+        </div>
+
+        <!-- Personal Information (Left Column) -->
+        <div class="form-group">
+            <label for="id_full_name">Full Name</label>
+            <input type="text" name="full_name" value="{{ form.full_name.value|default_if_none:'' }}" id="id_full_name">
+        </div>
+
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" value="{{ form.username.value|default_if_none:'' }}" id="id_username">
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email</label>
+            <input type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" id="id_email">
+        </div>
+
+        <div class="form-group">
+            <label for="id_gender">Gender</label>
+            <select name="gender" id="id_gender">
+                <option value="">Select Gender</option>
+                <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
+                <option value="O" {% if form.gender.value == 'O' %}selected{% endif %}>Other</option>
+                <option value="P" {% if form.gender.value == 'P' %}selected{% endif %}>Prefer not to say</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id_date_of_birth">Date of Birth</label>
+            <input type="date" name="date_of_birth" value="{{ form.date_of_birth.value|default_if_none:'' }}" id="id_date_of_birth">
+        </div>
+
+        <!-- Contact Information (Right Column) -->
+        <div class="form-group">
+            <label for="id_phone">Phone Number</label>
+            <input type="tel" name="phone" value="{{ form.phone.value|default_if_none:'' }}" id="id_phone">
+        </div>
+
+        <div class="form-group">
+            <label for="id_address">Address</label>
+            <input type="text" name="address" value="{{ form.address.value|default_if_none:'' }}" id="id_address">
+        </div>
+
+        <div class="form-group">
+            <label for="id_city">City</label>
+            <input type="text" name="city" value="{{ form.city.value|default_if_none:'' }}" id="id_city">
+        </div>
+
+        <div class="form-group">
+            <label for="id_state">State/Province</label>
+            <input type="text" name="state" value="{{ form.state.value|default_if_none:'' }}" id="id_state">
+        </div>
+
+        <div class="form-group">
+            <label for="id_country">Country</label>
+            <select name="country" id="id_country">
+                <option value="">Select Country</option>
+                {% for code, name in countries %}
+                    <option value="{{ code }}" {% if form.country.value == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id_postal_code">Postal Code</label>
+            <input type="text" name="postal_code" value="{{ form.postal_code.value|default_if_none:'' }}" id="id_postal_code">
+        </div>
+
+        <!-- Full Width Fields -->
+        <div class="form-group full-width">
+            <label for="id_bio">Bio/Description</label>
+            <textarea name="bio" id="id_bio" rows="4">{{ form.bio.value|default_if_none:'' }}</textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="save-changes-btn">Save Changes</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Image preview functionality
+    function previewImage(input) {
+        const preview = document.getElementById('image-preview');
+        const file = input.files[0];
+        const reader = new FileReader();
+        
+        reader.onloadend = function() {
+            if (file) {
+                preview.innerHTML = '';
+                preview.style.background = 'none';
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.className = 'current-image';
+                img.style.objectFit = 'cover';
+                preview.appendChild(img);
+            }
+        }
+        
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    // Initialize date picker (you might want to use a library like flatpickr for better UX)
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('id_date_of_birth');
+        if (dateField) {
+            // You can add date picker initialization here
+        }
+    });
+</script>
+{% endblock %}

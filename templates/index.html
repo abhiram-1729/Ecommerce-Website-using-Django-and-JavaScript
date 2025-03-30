@@ -1,0 +1,983 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load category_template_tags %}
+{% load slide_template_tags %}
+{% block content %}
+<style>
+	/*[ Block2 ]
+///////////////////////////////////////////////////////////
+*/
+.block2-labelpromotion::before,
+.block2-labelsale::before,
+.block2-labelnew::before 
+{
+  z-index: 100;
+  font-family: Montserrat-Regular;
+  font-size: 12px;
+  color: white;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 22px;
+  border-radius: 11px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.block2-labelsale::before {
+  background-color: white;
+  color: #000;
+  content: 'Sale';
+}
+
+.block2-labelnew::before {
+  background-color: #007bff;
+  content: 'New';
+}
+
+.block2-labelpromotion::before{
+	background-color: #000;
+	content: 'Promotion';
+	width: 70px;
+  }
+
+  .btn-dark {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+
+.btn-outline-dark {
+    color: #000;
+    border-color: #000;
+}
+
+
+</style>
+
+	<!-- Slide1 -->
+	<section class="slide1">
+		<div class="wrap-slick1">
+			<div class="slick1">
+				{% slides %}
+			</div>
+		</div>
+	</section>
+
+	<!-- Category start -->
+    <style>
+        /* --- Layout container with dynamic spacing --- */
+        .page-content {
+            min-height: calc(100vh - var(--navbar-height, 80px) - var(--footer-height, 60px));
+            padding-block: 2rem;
+            padding-inline: clamp(1rem, 5vw, 3rem);
+            background: linear-gradient(to bottom, #fdfdfd, #f4f4f4);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+        
+        /* --- Responsive images with slight aesthetic polish --- */
+        .img-responsive {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .img-responsive:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* --- Clearfix with modern utility class feel --- */
+        .row::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        
+        /* Optional bonus for row styling */
+        .row {
+            margin-inline: auto;
+            max-width: 1200px;
+            padding-inline: 1rem;
+        }
+        </style>
+        
+	<section class="banner bgwhite p-t-40 p-b-40">
+		<div class="container">
+			<div class="row">
+				{% categories_div %}
+			</div>
+		</div>
+	</section>
+
+	<!-- New Product -->
+	<style>
+		.newproduct{
+			margin-bottom: 2px;
+			padding-bottom: 2px;
+		}
+	</style>
+<script>
+    $(document).ready(function(){
+        $('.slick2').slick({
+            slidesToShow: 4,  // Number of items to show at once
+            slidesToScroll: 1,  // Number of items to scroll
+            autoplay: true,  // Auto-scroll
+            autoplaySpeed: 3000,  // Speed in milliseconds
+            arrows: true,  // Show navigation arrows
+            dots: false,  // Hide pagination dots
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+    });
+    </script>
+	<section class="newproduct bgwhite p-t-45 p-b-105">
+		<div class="container">
+			<div class="sec-title p-b-60">
+				<h3 class="m-text5 t-center">
+					Featured Products
+				</h3>
+			</div>
+
+			<!-- Slide2 -->
+			<div class="wrap-slick2">
+				<div class="slick2">
+
+					{% for item in object_list %}
+					
+					<div class="item-slick2 p-l-15 p-r-15">
+						<!-- Block2 -->
+						<div class="block2">
+							
+							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-label{{item.get_label_display}}">
+								<a href="{{item.get_absolute_url}}">
+								<img src="{{ item.image.url }}" alt="IMG-PRODUCT" 
+								style="height: 370px; width:100%; "></a>
+							</div>
+							
+
+							<div class="block2-txt p-t-20">
+								<a href="{{item.get_absolute_url}}" class="block2-name dis-block s-text3 p-b-5" style="color: black;">
+									{{ item.title }}
+								</a>
+
+								{% if item.discount_price %}
+								<span class="block2-oldprice m-text7 p-r-5" style="color: black;">
+									Rs.{{ item.price }}
+								</span>
+
+								<span class="block2-newprice m-text8 p-r-5">
+									Rs.{{ item.discount_price }}
+								</span>
+								{% else %}
+								<span class="block2-price m-text6 p-r-5" style="color: black;">
+									Rs.{{ item.price }}
+								</span>
+								{% endif %}
+								
+
+								
+							</div>
+							
+						</div>
+					</div>
+				
+					{% endfor %}
+
+					
+				
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!-- ------------------Banner2  start ------------------------>
+	<style>
+		/* Seasonal Essentials Section */
+.seasonal-essentials {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.seasonal-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.seasonal-title::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    bottom: -10px;
+    left: 25%;
+}
+
+.banner-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.banner-card {
+    flex: 1 1 45%;
+    min-width: 300px;
+    max-width: 550px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.banner-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.banner-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.banner-card:hover .banner-image {
+    transform: scale(1.05);
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    color: white;
+    z-index: 2;
+}
+
+.banner-heading {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.banner-card:hover .banner-heading {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.banner-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background: white;
+    color: #333;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.1s;
+}
+
+.banner-card:hover .banner-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.banner-button:hover {
+    background: #4ecdc4;
+    color: white;
+    transform: scale(1.05);
+}
+
+.banner-button i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.banner-button:hover i {
+    transform: translateX(5px);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse-animate {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .banner-grid {
+        flex-direction: column;
+    }
+    
+    .banner-card {
+        flex: 1 1 100%;
+    }
+    
+    .seasonal-title {
+        font-size: 2rem;
+    }
+    
+    .banner-heading {
+        font-size: 1.5rem;
+    }
+}
+	</style>
+	<section class="seasonal-essentials">
+		<h2 class="seasonal-title">Season's Essentials</h2>
+		<div class="banner-grid">
+			<div class="banner-card left-banner">
+				<div class="banner-image-wrapper">
+					<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/c85699cb-2813-4acd-8822-c3344fe07f17/nike-just-do-it.jpg" 
+						 alt="Bold Brights Looks" class="banner-image">
+					<div class="banner-overlay"></div>
+				</div>
+				<div class="banner-content">
+					<h3 class="banner-heading">Bold, Bright Looks</h3>
+					<a href="/shop/" class="banner-button pulse-animate">
+						Shop Now <i class="fas fa-arrow-right"></i>
+					</a>
+				</div>
+			</div>
+	
+			<div class="banner-card right-banner">
+				<div class="banner-image-wrapper">
+					<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/3d8a771b-0fd0-49b0-a9ad-1c688b192bf9/nike-just-do-it.jpg" 
+						 alt="Stay Active" class="banner-image">
+					<div class="banner-overlay"></div>
+				</div>
+				<div class="banner-content">
+					<h3 class="banner-heading">Stay Active</h3>
+					<a href="/shop/" class="banner-button pulse-animate">
+						Shop Now <i class="fas fa-arrow-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ------------------Banner2  start ------------------------>
+
+	<!-- ------------------Banner4  start ------------------------>
+<!-- Slide1 -->
+
+<style>
+	.slide1 button:hover{
+		background-color: white !important;
+		color: black;
+	}
+</style>
+<br><br>
+<section class="slide1">
+
+	
+	<div class="wrap-slick2">
+		<div class="slick1">
+			
+		
+	
+			
+
+			<div class="item-slick1 item2-slick1" style="background-image: url('https://static.nike.com/a/images/f_auto/dpr_2.0/w_1407,c_limit/a01665bf-08e7-4d5d-8fb6-841382e3f900/nike-just-do-it.jpg');">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 m-text1 t-center   m-b-15" data-appear="rollIn">
+							Nike ZoomX Vaporfly NEXT%
+						</span>
+						<h2 class="caption2-slide1 xl-text1 t-center   m-b-37" data-appear="lightSpeedIn">
+							FAST IS BACK
+						</h2>
+						<div class="wrap-btn-slide1 w-size1 " data-appear="slideInUp">
+							
+							<a href="/shop/" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+</section>
+
+<!-- ------------------Banner4  end ------------------------>
+
+	<!-- ------------------Banner3  start ------------------------>
+<style>
+	/* Training Essentials Section */
+.training-essentials {
+    padding: 5rem 2rem;
+    background: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+}
+
+.essentials-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.essentials-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #212529;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1rem;
+}
+
+.title-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    border-radius: 2px;
+}
+
+.essentials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.essentials-card {
+    flex: 1 1 45%;
+    min-width: 300px;
+    max-width: 550px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+}
+
+.essentials-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.card-image-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.essentials-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+.dark-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem;
+    z-index: 2;
+}
+
+.dark-content {
+    color: #212529;
+}
+
+.card-title {
+    font-size: 2.2rem;
+    margin-bottom: 1.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.essentials-card:hover .card-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-button-container {
+    overflow: hidden;
+}
+
+.card-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 2.2rem;
+    background: white;
+    color: #212529;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.1s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.dark-button {
+    background: #212529;
+    color: white;
+}
+
+.essentials-card:hover .card-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+}
+
+.button-arrow {
+    width: 18px;
+    height: 18px;
+    margin-left: 8px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transition: transform 0.3s ease;
+}
+
+.card-button:hover .button-arrow {
+    transform: translateX(4px);
+}
+
+/* Special Card Styles */
+.superre-card .card-button {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+}
+
+.leggings-card .card-title {
+    color: #212529;
+    text-shadow: 0 2px 4px rgba(255,255,255,0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .essentials-grid {
+        flex-direction: column;
+    }
+    
+    .essentials-card {
+        flex: 1 1 100%;
+    }
+    
+    .essentials-title {
+        font-size: 2.2rem;
+    }
+    
+    .card-title {
+        font-size: 1.8rem;
+    }
+    
+    .card-image-container {
+        height: 350px;
+    }
+}
+</style>
+	<section class="training-essentials">
+		<div class="essentials-header">
+			<h2 class="essentials-title">Training's Essentials</h2>
+			<div class="title-decoration"></div>
+		</div>
+		
+		<div class="essentials-grid">
+			<!-- SuperRe Go Card -->
+			<div class="essentials-card superre-card">
+				<div class="card-image-container">
+					<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/24fb4f53-ba07-46fa-934e-bcb35b0cc021/nike-just-do-it.jpg" 
+						 alt="SuperRe Go" class="card-image">
+					<div class="image-overlay"></div>
+				</div>
+				<div class="card-content">
+					<h3 class="card-title">SuperRe Go</h3>
+					<div class="card-button-container">
+						<a href="/shop/" class="card-button">
+							Shop Now
+							<svg class="button-arrow" viewBox="0 0 24 24">
+								<path d="M5 12h14M12 5l7 7-7 7"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+	
+			<!-- Bras & Leggings Card -->
+			<div class="essentials-card leggings-card">
+				<div class="card-image-container">
+					<img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/f33275db-0cbb-406a-8ac9-430ff07433b7/nike-just-do-it.jpg" 
+						 alt="Bras and Leggings" class="card-image">
+					<div class="image-overlay dark-overlay"></div>
+				</div>
+				<div class="card-content dark-content">
+					<h3 class="card-title">Bras & Leggings</h3>
+					<div class="card-button-container">
+						<a href="/shop/" class="card-button dark-button">
+							Shop Now
+							<svg class="button-arrow" viewBox="0 0 24 24">
+								<path d="M5 12h14M12 5l7 7-7 7"/>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ------------------Banner3  end ------------------------>
+
+	<!-- ------------------Banner5  start ------------------------>
+    <style>
+        /* Main Banner Section */
+        .banner-section {
+            padding: 4rem 2rem;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: #212529;
+        }
+        
+        /* Category Grid */
+        .category-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .category-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .category-col {
+            flex: 0 0 calc(33.333% - 2rem);
+            min-width: 280px;
+        }
+        
+        /* Category Card */
+        .category-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            height: 100%;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        
+        .card-content {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            padding: 0 2rem;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .category-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.9rem 2.2rem;
+            background: white;
+            color: #212529;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-button:hover {
+            background: #4ecdc4;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.15);
+        }
+        
+        .button-arrow {
+            width: 18px;
+            height: 18px;
+            margin-left: 8px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-button:hover .button-arrow {
+            transform: translateX(4px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .category-col {
+                flex: 0 0 calc(50% - 2rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .category-row {
+                flex-direction: column;
+            }
+            
+            .category-col {
+                flex: 0 0 100%;
+            }
+            
+            .card-image-container {
+                height: 350px;
+            }
+        }
+    </style>
+    
+    <section class="banner-section">
+        <h2 class="section-title">More Products</h2>
+        <div class="category-container">
+            <div class="category-row">
+                <!-- Men's Category -->
+                <div class="category-col">
+                    <div class="category-card">
+                        <div class="card-image-container">
+                            <img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/0bafb728-2ae2-416f-bb18-5935801c8071/nike-just-do-it.png" 
+                                 alt="Men's Collection" class="category-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <a href="/shop/mens" class="category-button">
+                                Men's
+                                <svg class="button-arrow" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Women's Category -->
+                <div class="category-col">
+                    <div class="category-card">
+                        <div class="card-image-container">
+                            <img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/2c8754ce-6287-4e77-a198-1ad483fba257/nike-just-do-it.png" 
+                                 alt="Women's Collection" class="category-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <a href="/shop/womens" class="category-button">
+                                Women's
+                                <svg class="button-arrow" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kids' Category -->
+                <div class="category-col">
+                    <div class="category-card">
+                        <div class="card-image-container">
+                            <img src="https://static.nike.com/a/images/f_auto/dpr_2.0/h_700,c_limit/414db494-7ebc-4d53-bbff-58d50b380a24/nike-just-do-it.png" 
+                                 alt="Kids' Collection" class="category-image">
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-content">
+                            <a href="/shop/kids" class="category-button">
+                                Kids'
+                                <svg class="button-arrow" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<!-- ------------------Banner2  start ------------------------>
+
+
+	
+	
+
+	<!-- Shipping -->
+	<section class="shipping bgwhite p-t-62 p-b-46">
+		<div class="flex-w p-l-15 p-r-15">
+			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
+				<h4 class="m-text12 t-center">
+					Free Delivery Worldwide
+				</h4>
+
+				<a href="#" class="s-text11 t-center">
+					Click here for more info
+				</a>
+			</div>
+
+			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 bo2 respon2">
+				<h4 class="m-text12 t-center">
+					30 Days Return
+				</h4>
+
+				<span class="s-text11 t-center">
+					Simply return it within 30 days for an exchange.
+				</span>
+			</div>
+
+			<div class="flex-col-c w-size5 p-l-15 p-r-15 p-t-16 p-b-15 respon1">
+				<h4 class="m-text12 t-center">
+					Store Opening
+				</h4>
+
+				<span class="s-text11 t-center">
+					Shop open from Monday to Sunday
+				</span>
+			</div>
+		</div>
+	</section>
+
+
+
+
+	
+
+	{% endblock content %}
+
+
+	

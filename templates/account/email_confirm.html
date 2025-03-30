@@ -1,0 +1,151 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+  /* Consistent Background */
+  .email-confirm-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Matching Card Styling */
+  .auth-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated Top Border */
+  .auth-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #e65540 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 5s ease infinite;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Title Styling */
+  .auth-title {
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+  }
+
+  .auth-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #e65540;
+    margin: 15px auto;
+    border-radius: 2px;
+  }
+
+  /* Content Styling */
+  .auth-content {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .auth-content a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .auth-content a:hover {
+    color: #e65540;
+    text-decoration: underline;
+  }
+
+  /* Button Styling */
+  .auth-btn {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    transition: all 0.3s;
+  }
+
+  .auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Responsive */
+  @media (max-width: 576px) {
+    .email-confirm-page {
+      padding: 20px 0;
+    }
+    .auth-card {
+      padding: 30px 20px;
+    }
+    .auth-btn {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="email-confirm-page">
+  <div class="container">
+    <div class="auth-card">
+      <h1 class="auth-title">{% trans "Confirm E-mail Address" %}</h1>
+
+      {% if confirmation %}
+        {% user_display confirmation.email_address.user as user_display %}
+
+        <p class="auth-content">
+          {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}
+        </p>
+
+        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+          {% csrf_token %}
+          <button type="submit" class="auth-btn">{% trans 'Confirm' %}</button>
+        </form>
+
+      {% else %}
+        {% url 'account_email' as email_url %}
+
+        <p class="auth-content">
+          {% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

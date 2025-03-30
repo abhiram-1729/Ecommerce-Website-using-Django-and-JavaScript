@@ -1,0 +1,132 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+  /* Modern Gradient Background */
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Card Style Container */
+  .logout-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    margin: 40px auto;
+  }
+
+  /* Animated Border Effect */
+  .logout-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #e65540 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 5s ease infinite;
+    border-radius: 20px 20px 0 0;
+  }
+
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Title Styling */
+  .logout-title {
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .logout-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 4px;
+    background: #e65540;
+    margin: 15px auto;
+    border-radius: 2px;
+  }
+
+  /* Content Styling */
+  .logout-content {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+
+  /* Button Styling */
+  .logout-btn {
+    background: linear-gradient(to right, #e65540, #d14242);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(230, 85, 64, 0.3);
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(230, 85, 64, 0.4);
+    background: linear-gradient(to right, #d14242, #e65540);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .logout-container {
+      padding: 30px 20px;
+      margin: 20px;
+    }
+    
+    .logout-btn {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="logout-container">
+        <h1 class="logout-title">{% trans "Sign Out" %}</h1>
+        
+        <p class="logout-content">{% trans 'Are you sure you want to sign out?' %}</p>
+
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          
+          <button type="submit" class="logout-btn">{% trans 'Sign Out' %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

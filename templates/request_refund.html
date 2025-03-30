@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+    :root {
+        --primary-color: #6c63ff;
+        --secondary-color: #4d44db;
+        --accent-color: #ff6584;
+        --light-bg: #f8f9fa;
+        --dark-text: #2d3748;
+        --border-radius: 12px;
+        --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .refund-container {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 2.5rem;
+        margin: 3rem auto;
+        max-width: 600px;
+        transition: var(--transition);
+    }
+
+    .refund-container:hover {
+        box-shadow: 0 15px 35px rgba(108, 99, 255, 0.15);
+    }
+
+    .refund-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .refund-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+
+    .refund-form .form-control {
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 15px;
+        transition: var(--transition);
+        height: auto;
+        margin-bottom: 1.5rem;
+    }
+
+    .refund-form .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(108, 99, 255, 0.15);
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        color: white;
+        text-transform: uppercase;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+    }
+
+    .btn-submit:active {
+        transform: translateY(0);
+    }
+
+    .help-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .help-text a {
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .help-text a:hover {
+        text-decoration: underline;
+    }
+
+    /* Crispy forms adjustment */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .refund-container {
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="refund-container">
+        <h2 class="refund-title">Request Refund</h2>
+        <form method="POST" class="refund-form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-submit">Submit Request</button>
+        </form>
+        <p class="help-text">
+            Need help? <a href="{% url 'contact' %}">Contact our support team</a>
+        </p>
+    </div>
+</div>
+
+{% endblock content %}
