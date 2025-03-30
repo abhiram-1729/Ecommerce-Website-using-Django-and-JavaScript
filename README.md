@@ -1,6 +1,4 @@
-# Django-Ecommerce
-
-Ecommerce website built with Django 2.2.3, Python 3.13.3,
+# Ecommerce Website using Django and JavaScript
 `Home Page`
 
 ![image](https://github.com/abhiram-1729/Ecommerce-website-using-Django-and-Javascript/blob/main/vedios/Homepage.png)
